@@ -1,0 +1,113 @@
+﻿<Window x:Class="TravelPal.TravelsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelPal"
+        mc:Ignorable="d"
+        Title="TravelsWindow" Height="450" Width="800" FontSize="20">
+    <Grid Margin="20" Background="MintCream">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+        <Label
+            Grid.Row="0"
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Content="HOMEPAGE"
+            FontSize="40"/>
+        <Label
+            x:Name="lbUsername"
+            Grid.Row="0"
+            Grid.Column="5"
+            FontSize="10"/>
+        <Label
+            Grid.Row="1"
+            Grid.Column="0"
+            Content="User details"
+            VerticalContentAlignment="Center"/>
+        <Label
+            Grid.Row="2"
+            Grid.Column="0"
+            Content="Add travel"
+            VerticalContentAlignment="Center"/>
+        <Label
+            Grid.Row="3"
+            Grid.Column="0"
+            Content="Trips Details"
+            VerticalContentAlignment="Center"/>
+        <Label
+            Grid.Row="4"
+            Grid.Column="0"
+            Content="Remove"
+            VerticalContentAlignment="Center"/>
+        <Label
+            Grid.Row="5"
+            Grid.Column="0"
+            Content="Sign out"
+            VerticalContentAlignment="Center"/>
+        <Button
+            x:Name="btnUserInfo"
+            Grid.Column="1"
+            Grid.Row="1"
+            Margin="15"
+            Content="*" 
+            Click="btnUserDetails_Click"/>
+        <Button
+            x:Name="btnAddTravel"
+            Grid.Column="1"
+            Grid.Row="2"
+            Margin="15"
+            Content="*"/>
+        <Button
+            x:Name="btnTripDetails"
+            Grid.Column="1"
+            Grid.Row="3"
+            Margin="15"
+            Content="*"/>
+        <Button
+            x:Name="btnRemove"
+            Grid.Column="1"
+            Grid.Row="4"
+            Margin="15"
+            Content="*"/>
+        <Button
+            x:Name="btnSignOut"
+            Grid.Column="1"
+            Grid.Row="5"
+            Margin="15"
+            Content="*" Click="btnSignOut_Click"/>
+        <Button
+            x:Name="btnInfo"
+            Grid.Column="4"
+            Grid.Row="1"
+            Margin="10"
+            Content="INFO"
+            VerticalContentAlignment="Center" Click="btnInfo_Click"
+            />
+        <TextBlock
+            x:Name="txtInfo"
+            Grid.Row="2"
+            Grid.Column="3"
+            Grid.ColumnSpan="3"
+            Grid.RowSpan="4"
+            TextWrapping="Wrap"/>
+
+    </Grid>
+</Window>
