@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelPal.Enums;
 using TravelPal.Managers;
+using TravelPal.Users;
 
 namespace TravelPal;
 
@@ -22,14 +23,14 @@ namespace TravelPal;
 public partial class RegisterWindow : Window
 {
     private UserManager userManager = new();
+    private readonly TravelManager travelManager;
 
-
-    public RegisterWindow(UserManager userManager)
+    public RegisterWindow(UserManager userManager, TravelManager travelManager)
     {
         InitializeComponent();
 
         this.userManager = userManager;
-
+        this.travelManager = travelManager;
         string[] countries = Enum.GetNames(typeof(Countries));
         cbCountry.ItemsSource = countries;
 
@@ -37,14 +38,20 @@ public partial class RegisterWindow : Window
 
     private void btnRegister_Click(object sender, RoutedEventArgs e)
     {
+        
         string username = txtUsername.Text;
         string password = txtPassword.Password;
         string? location = cbCountry.SelectedItem as string;
 
-        if(location != null)
+        if(location != null && username != null && password != null
+            && username.Length >= 5 && password.Length >= 5)
         {
             Countries country = (Countries)Enum.Parse(typeof(Countries), location);
             this.userManager.AddUser(username, password, country);
+        }
+        else if (username.Length <= 4 && password.Length <= 4)
+        {
+            MessageBox.Show("Username and Password must have more than 5 characthers", "WARNING");
         }
 
         Close();

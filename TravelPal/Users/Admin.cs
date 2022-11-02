@@ -9,12 +9,12 @@ namespace TravelPal.Users;
 
 public class Admin : IUser
 {
-    public string Username { get; set; }
-    public string Password { get; set; }
-    public Countries Country { get; set; }
+    public string Username { get; set; } 
+    public string Password { get; set; } 
 
-    public Admin(string username, string password, Countries country)
+    public Admin(string username, string password)
     {
-
+        Username = username;
+        Password = password;
     }
 }

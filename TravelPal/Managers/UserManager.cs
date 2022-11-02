@@ -24,7 +24,8 @@ public class UserManager
             //Add user to list
             users.Add(user);
 
-            return true;
+
+        return true;
     }
 
     public List<IUser> GetAllUsers()
@@ -37,7 +38,7 @@ public class UserManager
     {
 
         //Loop the list of users
-        foreach(User user in users)
+        foreach(IUser user in users)
         {
             //check if username and password exits in userlist
             if (user.Username == username && user.Password == password)
@@ -63,4 +64,19 @@ public class UserManager
 
         return null;
     }
+
+    //public void ValidateUsername(string username, string password, Countries country)
+    //{
+    //    foreach(IUser user1 in users)
+    //    {
+    //        if (user1.Username.Contains(username))
+    //        {
+    //            MessageBox.Show("This username is already in use, please choose another one", "WARNING");
+    //        }
+    //        else
+    //        {
+    //            AddUser(username,password,country);
+    //        }
+    //    }
+    //}
 }

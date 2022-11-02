@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelPal.Enums;
 using TravelPal.Managers;
+using TravelPal.Users;
 
 namespace TravelPal;
 
@@ -22,17 +23,25 @@ namespace TravelPal;
 public partial class UserDetails : Window
 {
     private UserManager userManager;
+    private readonly TravelManager travelManager;
+    private bool isUser;
 
-    public UserDetails(UserManager userManager)
+    public UserDetails(UserManager userManager, TravelManager travelManager)
     {
         InitializeComponent();
         //userManager.SignedInUser = userManager.GetUser(username, password, country);
 
         this.userManager = userManager;
-
+        this.travelManager = travelManager;
         lblUsername.Content = userManager.SignedInUser.Username;
         lblPassword.Content = userManager.SignedInUser.Password;
-        lblCountry.Content = userManager.SignedInUser.Country.ToString();
+
+        if(userManager.SignedInUser is User)
+        {
+            isUser = true;
+            User signedInUser = userManager.SignedInUser as User;
+            lblCountry.Content = signedInUser.Country.ToString();
+        }
     }
 
     private void btnChangeInfo_Click(object sender, RoutedEventArgs e)
@@ -40,13 +49,16 @@ public partial class UserDetails : Window
         txtConfirmPassword.IsEnabled = true;
         txtNewUsername.IsEnabled = true;
         txtNewPassword.IsEnabled = true;
-        cbNewCountry.IsEnabled = true;
+
+        if (isUser)
+        {
+            cbNewCountry.IsEnabled = true;
+
+            string[] countries = Enum.GetNames(typeof(Countries));
+            cbNewCountry.ItemsSource = countries;
+        }
+
         btnSave.IsEnabled = true;
-
-        this.userManager = userManager;
-
-        string[] countries = Enum.GetNames(typeof(Countries));
-        cbNewCountry.ItemsSource = countries;
     }
 
     private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -66,10 +78,12 @@ public partial class UserDetails : Window
         {
             MessageBox.Show("Type in your new username", "WARNING");
         }
-        if (newLocation != null)
+        if (newLocation != null && isUser)
         {
             Countries country = (Countries)Enum.Parse(typeof(Countries), newLocation);
-            userManager.SignedInUser.Country = country;
+            User user = userManager.SignedInUser as User;
+            user.Country = country;
+            userManager.SignedInUser = user;
         }
         else if (newLocation == null)
         {
@@ -78,20 +92,32 @@ public partial class UserDetails : Window
 
         if(newPassword != null)
         {
-            if(newPassword == confirmPassword)
+            if(newPassword == confirmPassword && newPassword.Count() <= 5)
             {
                 userManager.SignedInUser.Password = newPassword;
 
             }
+            else if(newPassword.Length >= 4)
+            {
+                MessageBox.Show("Password must be atleast 5 Characters long", "OBS");
+            }
+            else
+            {
+                MessageBox.Show("The passwords did not match!", "WARNING");
+            }
         }
-        else if(newPassword == null && confirmPassword == null)
+        else if (newPassword == null)
         {
-            MessageBox.Show("Type in your new password", "WARNING");
+            MessageBox.Show("Please fill in the new password box!", "WARNING");
         }
-        else
-        {
-            MessageBox.Show("The new passwords did not match!", "Warning");
-        }
+        //else if(newPassword == null && confirmPassword == null)
+        //{
+        //    MessageBox.Show("Type in your new password", "WARNING");
+        //}
+        //else
+        //{
+        //    MessageBox.Show("The new passwords did not match!", "Warning");
+        //}
     }
 
     private void btnReturn_Click(object sender, RoutedEventArgs e)

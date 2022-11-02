@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelPal.Enums;
 using TravelPal.Managers;
+using TravelPal.Travels;
 using TravelPal.Users;
 
 namespace TravelPal;
@@ -22,16 +23,42 @@ namespace TravelPal;
 /// </summary>
 public partial class TravelsWindow : Window
 {
+    TravelManager travelManager;
     UserManager userManager;
-    MainWindow mainWindow = new();
-    IUser user;
-    public TravelsWindow(UserManager userManager)
+
+    public TravelsWindow(UserManager userManager, TravelManager travelManager)
     {
         InitializeComponent();
 
         this.userManager = userManager;
+        this.travelManager = travelManager;
 
         lbUsername.Content = userManager.SignedInUser.Username;
+
+        if(userManager.SignedInUser is User)
+        {
+            User user = userManager.SignedInUser as User;
+
+            foreach(Travel travel in user.Travels)
+            {
+                ListViewItem item = new();
+                item.Content = travel.GetInfo();
+                item.Tag = travel;
+
+                txtTrips.Items.Add(item);
+            }
+        }
+        else if(userManager.SignedInUser is Admin)
+        {
+            foreach(Travel travel in travelManager.travels)
+            {
+                ListViewItem item = new();
+                item.Content = travel.GetInfo();
+                item.Tag = travel;
+
+                txtTrips.Items.Add(item);
+            }
+        }
     }
 
     private void btnInfo_Click(object sender, RoutedEventArgs e)
@@ -48,15 +75,38 @@ public partial class TravelsWindow : Window
 
     private void btnSignOut_Click(object sender, RoutedEventArgs e)
     {
+        MainWindow mainWindow = new(userManager, travelManager);
         mainWindow.Show();
         Close();
     }
 
     private void btnUserDetails_Click(object sender, RoutedEventArgs e)
     {
-        UserDetails userDetails = new(userManager);
+        UserDetails userDetails = new(userManager, travelManager);
 
         userDetails.Show();
+        Close();
+    }
+
+    private void btnAddTravel_Click(object sender, RoutedEventArgs e)
+    {
+        AddTravelWindow addTravelWindow = new(userManager, travelManager);
+        addTravelWindow.Show();
+        Close();
+    }
+
+    private void btnTripDetails_Click(object sender, RoutedEventArgs e)
+    {
+        ListViewItem selectedItem = txtTrips.SelectedItem as ListViewItem;
+
+        if(selectedItem != null)
+        {
+            Travel selectedTravel = selectedItem.Tag as Travel;
+
+            TravelDetailsWindow travelDetailsWindow = new(userManager, travelManager, selectedTravel);
+            travelDetailsWindow.Show();
+        }
+
 
     }
 }
