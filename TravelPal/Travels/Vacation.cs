@@ -10,14 +10,14 @@ namespace TravelPal.Travels
     internal class Vacation : Travel
     {
         public bool AllInclusive { get; set; }
-        public Vacation(string destination, Countries country, int travelers, bool allInclusive) : base(destination, country, travelers)
+        public Vacation(string destination, Countries country, int travelers, bool allInclusive, string UserID) : base(destination, country, travelers, UserID)
         {
             AllInclusive = allInclusive;
         }
 
         public override string GetInfo()
         {
-            return $"From: {Destination}/ To: {Country}";
+            return $"From: {Destination}/ To: {Country} / {UserID}";
             //return base.GetInfo();
         }
 

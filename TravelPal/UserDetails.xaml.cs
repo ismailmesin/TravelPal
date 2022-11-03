@@ -25,6 +25,7 @@ public partial class UserDetails : Window
     private UserManager userManager;
     private readonly TravelManager travelManager;
     private bool isUser;
+    User user;
 
     public UserDetails(UserManager userManager, TravelManager travelManager)
     {
@@ -41,6 +42,14 @@ public partial class UserDetails : Window
             isUser = true;
             User signedInUser = userManager.SignedInUser as User;
             lblCountry.Content = signedInUser.Country.ToString();
+        }
+        else if (userManager.SignedInUser is Admin)
+        {
+            txtConfirmPassword.IsEnabled = false;
+            txtNewUsername.IsEnabled = false;
+            txtNewPassword.IsEnabled = false;
+            btnSave.IsEnabled = false;
+            btnChangeInfo.IsEnabled = false;
         }
     }
 
@@ -69,59 +78,28 @@ public partial class UserDetails : Window
         string confirmPassword = txtConfirmPassword.Text;
         string? newLocation = cbNewCountry.SelectedItem as string;
 
-        if(newUsername != null && newUsername.Length >= 5)
+        if (userManager.UpdateUsername(user, newUsername))
         {
-            userManager.SignedInUser.Username = newUsername;
-
-        }
-        else if (newUsername == null)
-        {
-            MessageBox.Show("Type in your new username", "WARNING");
-        }
-        else if(newUsername.Length <= 5)
-        {
-            MessageBox.Show("Your new username is less than 5 characters");
-        }
-        if (newLocation != null && isUser)
-        {
-            Countries country = (Countries)Enum.Parse(typeof(Countries), newLocation);
-            User user = userManager.SignedInUser as User;
-            user.Country = country;
-            userManager.SignedInUser = user;
-        }
-        else if (newLocation == null)
-        {
-            MessageBox.Show("Type in your new location", "WARNING");
-        }
-
-        if(newPassword != null)
-        {
-            if(newPassword == confirmPassword && newPassword.Count() <= 5)
+            //userManager.SignedInUser.Username = newUsername;
+            if (userManager.ValidatePassword(newPassword, confirmPassword))
             {
-                userManager.SignedInUser.Password = newPassword;
+                //userManager.SignedInUser.Password = newPassword;
 
-            }
-            else if(newPassword.Length >= 4)
-            {
-                MessageBox.Show("Password must be atleast 5 Characters long", "OBS");
-            }
-            else
-            {
-                MessageBox.Show("The passwords did not match!", "WARNING");
+                if (newLocation != null && isUser)
+                {
+                    Countries country = (Countries)Enum.Parse(typeof(Countries), newLocation);
+                    User user = userManager.SignedInUser as User;
+                    user.Country = country;
+                    userManager.SignedInUser = user;
+                    userManager.SignedInUser.Username = newUsername;
+                    userManager.SignedInUser.Password = newPassword;
+                }
+                else
+                {
+                    MessageBox.Show("Something went wrong with the location change, please try again!");
+                }
             }
         }
-        else if (newPassword == null)
-        {
-            MessageBox.Show("Please fill in the new password box!", "WARNING");
-        }
-        //else if(newPassword == null && confirmPassword == null)
-        //{
-        //    MessageBox.Show("Type in your new password", "WARNING");
-        //}
-        //else
-        //{
-        //    MessageBox.Show("The new passwords did not match!", "Warning");
-        //}
     }
 
     private void btnReturn_Click(object sender, RoutedEventArgs e)

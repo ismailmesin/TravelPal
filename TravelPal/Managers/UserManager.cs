@@ -28,10 +28,15 @@ public class UserManager
         return true;
     }
 
-    public List<IUser> GetAllUsers()
+    public User GetAllUsers()
     {
         //return users in list
-        return users;
+        foreach(User user in users)
+        {
+            return user;
+
+        }
+        return null;
     }
 
     public bool SignInUser(string username, string password)
@@ -96,19 +101,23 @@ public class UserManager
         }
         return true;
     }
-
-    //public void ValidateUsername(string username, string password, Countries country)
-    //{
-    //    foreach(IUser user1 in users)
-    //    {
-    //        if (user1.Username.Contains(username))
-    //        {
-    //            MessageBox.Show("This username is already in use, please choose another one", "WARNING");
-    //        }
-    //        else
-    //        {
-    //            AddUser(username,password,country);
-    //        }
-    //    }
-    //}
+    public bool ValidatePassword(string password, string newPassword)
+    {
+        if (password.Length < 5)
+        {
+            MessageBox.Show("password must be 5 characthers long");
+            return false;
+        }
+        else if (password == null)
+        {
+            MessageBox.Show("You need to enter a password");
+            return false;
+        }
+        else if (password != newPassword)
+        {
+            MessageBox.Show("The passwords did not match, Try again");
+            return false;
+        }
+        return true;
+    }
 }

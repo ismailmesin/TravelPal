@@ -136,21 +136,18 @@ public partial class TravelsWindow : Window
             else if (userManager.SignedInUser is Admin)
             {
                 Admin admin = userManager.SignedInUser as Admin;
+                User user = userManager.GetAllUsers();
+
+
 
                 Travel selectedTravel = selectedItem.Tag as Travel;
 
                 travelManager.travels.Remove(selectedTravel);
-                travelManager.RemoveUserTravels(selectedTravel);
-                //user.Travels.Remove(selectedTravel);
-
+                travelManager.RemoveUserTravels(selectedTravel, user);
 
             }
 
             UpdateUI();
-
-            //TravelsWindow travelsWindow = new(userManager, travelManager);
-            //travelsWindow.Show();
-            //Close();
 
         }
     }

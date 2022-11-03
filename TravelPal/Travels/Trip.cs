@@ -10,14 +10,14 @@ namespace TravelPal.Travels;
 internal class Trip : Travel
 {
     public TripTypes Type { get; set; }
-    public Trip(string destination, Countries country, int travelers, TripTypes tripType) : base(destination, country, travelers)
+    public Trip(string destination, Countries country, int travelers, TripTypes tripType, string UserID) : base(destination, country, travelers, UserID)
     {
         Type = tripType;
     }
 
     public override string GetInfo()
     {
-        return $"From: {Destination}/ To: {Country}";
+        return $"From: {Destination}/ To: {Country} / {UserID}";
 
 
         //return base.GetInfo();

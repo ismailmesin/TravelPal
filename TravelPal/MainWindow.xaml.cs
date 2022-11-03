@@ -40,8 +40,8 @@ namespace TravelPal
             Admin admin = new("Admin", "password");
             userManager.users.Add(admin);
 
-            Travel travel = travelManager.AddTravel("Middle Earth", Countries.argentina, 5, TripTypes.Leisure);
-            Travel travel2 = travelManager.AddTravel("Middle Earth", Countries.USA, 2, TripTypes.Work);
+            Travel travel = travelManager.AddTravel("Middle Earth", Countries.argentina, 5, TripTypes.Leisure, "Gandalf");
+            Travel travel2 = travelManager.AddTravel("Middle Earth", Countries.USA, 2, TripTypes.Work, "Gandalf");
 
             user1.Travels.Add(travel);
             user1.Travels.Add(travel2);

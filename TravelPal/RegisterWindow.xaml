@@ -39,6 +39,12 @@
         <Label 
             Grid.Row="3"
             Grid.Column="2"
+            Content="Confirm Password"
+            VerticalAlignment="Center"
+            Foreground="White"/>
+        <Label 
+            Grid.Row="4"
+            Grid.Column="2"
             Content="Country"
             VerticalAlignment="Center"
             Foreground="White"/>
@@ -64,16 +70,22 @@
             Grid.Column="3"
             Height="30"
             VerticalContentAlignment="Center"/>
+        <PasswordBox
+            x:Name="txtConfirmPassword"
+            Grid.Row="3"
+            Grid.Column="3"
+            Height="30"
+            VerticalContentAlignment="Center"/>
         <ComboBox
             x:Name="cbCountry"
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="3"
             Height="25"
             VerticalContentAlignment="Center"/>
         <Button 
             x:Name="btnRegister"
-            Grid.Row="4"
-            Grid.Column="3"
+            Grid.Row="5"
+            Grid.Column="4"
             Content="Register"
             Height="30"
             Margin="10 0" Click="btnRegister_Click" 

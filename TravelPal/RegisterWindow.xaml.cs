@@ -42,6 +42,7 @@ public partial class RegisterWindow : Window
         
         string username = txtUsername.Text;
         string password = txtPassword.Password;
+        string confirmPassword = txtConfirmPassword.Password;
         string? location = cbCountry.SelectedItem as string;
 
         //if(location != null && username != null && password != null
@@ -49,8 +50,11 @@ public partial class RegisterWindow : Window
         if(this.userManager.UpdateUsername(user, username))
         {
             Countries country = (Countries)Enum.Parse(typeof(Countries), location);
-            this.userManager.AddUser(username, password, country);
-            Close();
+            if (this.userManager.ValidatePassword(password, confirmPassword))
+            {
+                this.userManager.AddUser(username, password, country);
+                Close();
+            }
         }
         else if (username.Length <= 4 && password.Length <= 4)
         {

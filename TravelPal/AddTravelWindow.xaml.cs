@@ -64,9 +64,11 @@ public partial class AddTravelWindow : Window
             {
                 string tripTypeString = cbTripType.SelectedItem as string;
 
+                string userID = userManager.SignedInUser.Username;
+
                 TripTypes tripType = (TripTypes)Enum.Parse(typeof(TripTypes), tripTypeString);
 
-                Travel newTravel = travelManager.AddTravel(departureCountry, country, numberOfTravelers, tripType);
+                Travel newTravel = travelManager.AddTravel(departureCountry, country, numberOfTravelers, tripType, userID);
 
                 if (userManager.SignedInUser is User)
                 {
@@ -79,9 +81,11 @@ public partial class AddTravelWindow : Window
             }
             else if (selectedTravelType == "Vacation")
             {
+                string userID = userManager.SignedInUser.Username;
+
                 bool allInclusive = (bool)xbAllInclusive.IsChecked;
 
-                Travel newTravel = travelManager.AddTravel(departureCountry, country, numberOfTravelers, allInclusive);
+                Travel newTravel = travelManager.AddTravel(departureCountry, country, numberOfTravelers, allInclusive, userID);
 
                 if (userManager.SignedInUser is User)
                 {

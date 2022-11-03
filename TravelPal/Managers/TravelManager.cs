@@ -16,20 +16,21 @@ public class TravelManager
     public string Destination { get; set; }
     public Countries Country { get; set; }
     User user;
+    UserManager userManager;
 
 
-    public Travel AddTravel(string destination, Countries country, int travelers, TripTypes tripType)
+    public Travel AddTravel(string destination, Countries country, int travelers, TripTypes tripType, string UserID)
     {
-        Trip trip = new(destination, country, travelers, tripType);
+        Trip trip = new(destination, country, travelers, tripType, UserID);
 
         travels.Add(trip);
 
         return trip;
     }
 
-    public Travel AddTravel(string destination, Countries country, int travelers, bool allInclusive)
+    public Travel AddTravel(string destination, Countries country, int travelers, bool allInclusive, string UserID)
     {
-        Vacation vacation = new(destination, country, travelers, allInclusive);
+        Vacation vacation = new(destination, country, travelers, allInclusive, UserID);
 
         travels.Add(vacation);
 
@@ -45,13 +46,11 @@ public class TravelManager
         return null;
       
     }
-    public void RemoveUserTravels(Travel travel)
+    public void RemoveUserTravels(Travel travel, User user)
     {
-        foreach(Travel travel1 in travels)
+        if (user.Username == travel.UserID)
         {
             user.Travels.Remove(travel);
-
         }
     }
-
 }
