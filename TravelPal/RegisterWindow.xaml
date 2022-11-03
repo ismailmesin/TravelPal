@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="TRAVELPAL REGISTER" Height="450" Width="800">
+        Title="TRAVELPAL REGISTER" Height="450" Width="800"
+        FontSize="15" FontFamily="Arial" Background="MediumSlateBlue">
     <Grid Margin="20" Background="MediumSlateBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

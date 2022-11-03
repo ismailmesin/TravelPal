@@ -33,4 +33,9 @@ public partial class TravelDetailsWindow : Window
 
         lvTripDetails.Items.Add(travel.GetDetailedInfo());
     }
+
+    private void btnReturn_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
 }

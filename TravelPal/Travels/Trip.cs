@@ -17,7 +17,7 @@ internal class Trip : Travel
 
     public override string GetInfo()
     {
-        return $"From: {Destination}/ To: {Country} / {UserID}";
+        return $"From: {Destination} To: {Country} /user: {UserID}";
 
 
         //return base.GetInfo();
@@ -26,12 +26,12 @@ internal class Trip : Travel
     {
         if(Type == TripTypes.Leisure)
         {
-            return $"{Destination} / {Country} / Number of travellers: {Travelers} / Type of trip: Leisure";
+            return $"From: {Destination} To: {Country} / Number of travellers: {Travelers} / Type of trip: Leisure";
 
         }
         else
         {
-            return $"{Destination} / {Country} / Number of travellers: {Travelers} / Type of trip: Work";
+            return $"From: {Destination} To: {Country} / Number of travellers: {Travelers} / Type of trip: Work";
 
         }
 

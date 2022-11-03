@@ -17,7 +17,7 @@ namespace TravelPal.Travels
 
         public override string GetInfo()
         {
-            return $"From: {Destination}/ To: {Country} / {UserID}";
+            return $"From: {Destination} To: {Country} /user: {UserID}";
             //return base.GetInfo();
         }
 
@@ -25,12 +25,12 @@ namespace TravelPal.Travels
         {
             if (AllInclusive)
             {
-                return $"{Destination} / {Country} / Number of travellers: {Travelers} / All inclusive ";
+                return $"From: {Destination} To: {Country} / Number of travellers: {Travelers} / Vacation / All inclusive ";
 
             }
             else
             {
-                return $"{Destination} / {Country} / Number of travellers: {Travelers} ";
+                return $"From:{Destination} To: {Country} / Number of travellers: {Travelers} / Vacation ";
 
             }
         }

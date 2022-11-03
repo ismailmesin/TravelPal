@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
         Title="Travel Details" Height="450" Width="800" FontFamily="Arial"
-        FontSize="20">
+        FontSize="15" Background="MediumSlateBlue">
     <Grid Margin="20" Background="MediumSlateBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -43,6 +43,16 @@
             Grid.RowSpan="4"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"/>
+        <Button
+            x:Name="btnReturn"
+            Grid.Column="0"
+            Grid.Row="6"
+            Content="Return"
+            Margin="10" 
+            Background="MintCream"
+            Click="btnReturn_Click"
+            BorderThickness="5"
+            BorderBrush="MintCream"/>
 
     </Grid>
 </Window>
