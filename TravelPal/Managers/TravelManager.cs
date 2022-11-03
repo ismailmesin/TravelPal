@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 using System.Windows;
 using TravelPal.Enums;
 using TravelPal.Travels;
+using TravelPal.Users;
 
 namespace TravelPal.Managers;
 
 public class TravelManager
 {
     public List<Travel> travels = new();
+    public string Destination { get; set; }
+    public Countries Country { get; set; }
+    User user;
+
 
     public Travel AddTravel(string destination, Countries country, int travelers, TripTypes tripType)
     {
@@ -30,21 +35,23 @@ public class TravelManager
 
         return vacation;
     }
-    public Travel GetInfo()
+    public string GetInfo()
     {
-        if (travels != null)
+
+        foreach (Travel travel in travels)
         {
-            foreach (Travel travel in travels)
-            {
-                return travel;
-            }
-        }
-        else
-        {
-            MessageBox.Show("You have not added any trips!");
+            return $"{Destination} / {Country}";
         }
         return null;
       
+    }
+    public void RemoveUserTravels(Travel travel)
+    {
+        foreach(Travel travel1 in travels)
+        {
+            user.Travels.Remove(travel);
+
+        }
     }
 
 }

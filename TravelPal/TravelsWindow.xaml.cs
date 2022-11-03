@@ -25,17 +25,21 @@ public partial class TravelsWindow : Window
 {
     TravelManager travelManager;
     UserManager userManager;
-
     public TravelsWindow(UserManager userManager, TravelManager travelManager)
     {
         InitializeComponent();
 
         this.userManager = userManager;
         this.travelManager = travelManager;
+        UpdateUI();
+    }
 
+    private void UpdateUI()
+    {
+        txtTrips.Items.Clear();
         lbUsername.Content = userManager.SignedInUser.Username;
 
-        if(userManager.SignedInUser is User)
+        if (userManager.SignedInUser is User)
         {
             User user = userManager.SignedInUser as User;
 
@@ -48,16 +52,18 @@ public partial class TravelsWindow : Window
                 txtTrips.Items.Add(item);
             }
         }
-        else if(userManager.SignedInUser is Admin)
+        else if (userManager.SignedInUser is Admin)
         {
-            foreach(Travel travel in travelManager.travels)
-            {
-                ListViewItem item = new();
-                item.Content = travel.GetInfo();
-                item.Tag = travel;
+            Admin admin = userManager.SignedInUser as Admin;
 
-                txtTrips.Items.Add(item);
-            }
+             foreach (Travel travel in travelManager.travels)
+             {
+              ListViewItem item = new();
+              item.Content = travel.GetInfo();
+              item.Tag = travel;
+
+               txtTrips.Items.Add(item);
+             }
         }
     }
 
@@ -106,7 +112,47 @@ public partial class TravelsWindow : Window
             TravelDetailsWindow travelDetailsWindow = new(userManager, travelManager, selectedTravel);
             travelDetailsWindow.Show();
         }
+        else if (selectedItem == null)
+        {
+            MessageBox.Show("Please select a trip in the list");
+        }
+    }
+
+    private void btnRemove_Click(object sender, RoutedEventArgs e)
+    {
+        ListViewItem selectedItem = txtTrips.SelectedItem as ListViewItem;
+
+        if (selectedItem != null)
+        {
+            if (userManager.SignedInUser is User)
+            {
+                User user = userManager.SignedInUser as User;
+
+                Travel selectedTravel = selectedItem.Tag as Travel;
+
+                travelManager.travels.Remove(selectedTravel);
+                user.Travels.Remove(selectedTravel);
+            }
+            else if (userManager.SignedInUser is Admin)
+            {
+                Admin admin = userManager.SignedInUser as Admin;
+
+                Travel selectedTravel = selectedItem.Tag as Travel;
+
+                travelManager.travels.Remove(selectedTravel);
+                travelManager.RemoveUserTravels(selectedTravel);
+                //user.Travels.Remove(selectedTravel);
 
 
+            }
+
+            UpdateUI();
+
+            //TravelsWindow travelsWindow = new(userManager, travelManager);
+            //travelsWindow.Show();
+            //Close();
+
+        }
     }
 }
+

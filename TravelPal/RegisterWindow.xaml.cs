@@ -24,6 +24,7 @@ public partial class RegisterWindow : Window
 {
     private UserManager userManager = new();
     private readonly TravelManager travelManager;
+    private User user;
 
     public RegisterWindow(UserManager userManager, TravelManager travelManager)
     {
@@ -43,17 +44,18 @@ public partial class RegisterWindow : Window
         string password = txtPassword.Password;
         string? location = cbCountry.SelectedItem as string;
 
-        if(location != null && username != null && password != null
-            && username.Length >= 5 && password.Length >= 5)
+        //if(location != null && username != null && password != null
+        //    && username.Length >= 5 && password.Length >= 5)
+        if(this.userManager.UpdateUsername(user, username))
         {
             Countries country = (Countries)Enum.Parse(typeof(Countries), location);
             this.userManager.AddUser(username, password, country);
+            Close();
         }
         else if (username.Length <= 4 && password.Length <= 4)
         {
             MessageBox.Show("Username and Password must have more than 5 characthers", "WARNING");
         }
 
-        Close();
     }
 }

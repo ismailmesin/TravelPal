@@ -24,6 +24,7 @@ public partial class TravelDetailsWindow : Window
 {
     private readonly UserManager userManager;
     TravelManager travelManager;
+    IUser user;
     public TravelDetailsWindow(UserManager userManager, TravelManager travelManager, Travel travel)
     {
         InitializeComponent();
@@ -31,6 +32,5 @@ public partial class TravelDetailsWindow : Window
         this.travelManager = travelManager;
 
         lvTripDetails.Items.Add(travel.GetDetailedInfo());
-
     }
 }

@@ -17,7 +17,22 @@ namespace TravelPal.Travels
 
         public override string GetInfo()
         {
-            return base.GetInfo();
+            return $"From: {Destination}/ To: {Country}";
+            //return base.GetInfo();
+        }
+
+        public override string GetDetailedInfo()
+        {
+            if (AllInclusive)
+            {
+                return $"{Destination} / {Country} / Number of travellers: {Travelers} / All inclusive ";
+
+            }
+            else
+            {
+                return $"{Destination} / {Country} / Number of travellers: {Travelers} ";
+
+            }
         }
     }
 }

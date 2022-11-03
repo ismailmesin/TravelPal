@@ -69,7 +69,7 @@ public partial class UserDetails : Window
         string confirmPassword = txtConfirmPassword.Text;
         string? newLocation = cbNewCountry.SelectedItem as string;
 
-        if(newUsername != null)
+        if(newUsername != null && newUsername.Length >= 5)
         {
             userManager.SignedInUser.Username = newUsername;
 
@@ -77,6 +77,10 @@ public partial class UserDetails : Window
         else if (newUsername == null)
         {
             MessageBox.Show("Type in your new username", "WARNING");
+        }
+        else if(newUsername.Length <= 5)
+        {
+            MessageBox.Show("Your new username is less than 5 characters");
         }
         if (newLocation != null && isUser)
         {
@@ -122,6 +126,8 @@ public partial class UserDetails : Window
 
     private void btnReturn_Click(object sender, RoutedEventArgs e)
     {
+        TravelsWindow travelsWindow = new(userManager, travelManager);
+        travelsWindow.Show();
         Close();
     }
 }

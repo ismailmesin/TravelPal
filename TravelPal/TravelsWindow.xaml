@@ -86,7 +86,7 @@
             Grid.Column="1"
             Grid.Row="4"
             Margin="15"
-            Content="*"/>
+            Content="*" Click="btnRemove_Click"/>
         <Button
             x:Name="btnSignOut"
             Grid.Column="1"

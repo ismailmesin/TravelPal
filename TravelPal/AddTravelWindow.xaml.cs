@@ -49,49 +49,61 @@ public partial class AddTravelWindow : Window
 
     private void btnAdd_Click(object sender, RoutedEventArgs e)
     {
-        string departureCountry = txtDepartureCountry.Text;
-        string arrivalCountry = cbArrivalCountry.SelectedItem as string;
-        int numberOfTravelers = Convert.ToInt32(txtTravelers.Text);
-        Countries country = (Countries)Enum.Parse(typeof(Countries), arrivalCountry);
-
-
-        if(selectedTravelType == "Trip")
+        try
         {
-            string tripTypeString = cbTripType.SelectedItem as string;
+            string departureCountry = txtDepartureCountry.Text;
+            string arrivalCountry = cbArrivalCountry.SelectedItem as string;
 
-            TripTypes tripType = (TripTypes)Enum.Parse(typeof(TripTypes), tripTypeString);
+            int numberOfTravelers = Convert.ToInt32(txtTravelers.Text);
 
-            Travel newTravel = travelManager.AddTravel(departureCountry, country, numberOfTravelers, tripType);
-            
-            if(userManager.SignedInUser is User)
+            //int numberOfTravelers = Convert.ToInt32(txtTravelers.Text);
+            Countries country = (Countries)Enum.Parse(typeof(Countries), arrivalCountry);
+
+
+            if (selectedTravelType == "Trip")
             {
-                User user = userManager.SignedInUser as User;
+                string tripTypeString = cbTripType.SelectedItem as string;
 
-                user.Travels.Add(newTravel);
+                TripTypes tripType = (TripTypes)Enum.Parse(typeof(TripTypes), tripTypeString);
 
-                userManager.SignedInUser = user;
+                Travel newTravel = travelManager.AddTravel(departureCountry, country, numberOfTravelers, tripType);
+
+                if (userManager.SignedInUser is User)
+                {
+                    User user = userManager.SignedInUser as User;
+
+                    user.Travels.Add(newTravel);
+
+                    userManager.SignedInUser = user;
+                }
             }
+            else if (selectedTravelType == "Vacation")
+            {
+                bool allInclusive = (bool)xbAllInclusive.IsChecked;
+
+                Travel newTravel = travelManager.AddTravel(departureCountry, country, numberOfTravelers, allInclusive);
+
+                if (userManager.SignedInUser is User)
+                {
+                    User user = userManager.SignedInUser as User;
+
+                    user.Travels.Add(newTravel);
+
+                    userManager.SignedInUser = user;
+                }
+            }
+            TravelsWindow travelsWindow = new(userManager, travelManager);
+            travelsWindow.Show();
+            Close();
         }
-        else if (selectedTravelType == "Vacation")
+
+        catch
         {
-            bool allInclusive = (bool)xbAllInclusive.IsChecked;
-
-            Travel newTravel = travelManager.AddTravel(departureCountry, country, numberOfTravelers, allInclusive);
-
-            if (userManager.SignedInUser is User)
-            {
-                User user = userManager.SignedInUser as User;
-
-                user.Travels.Add(newTravel);
-
-                userManager.SignedInUser = user;
-            }
+            MessageBox.Show("Please type in a number in number of travelers");
         }
-
-        TravelsWindow travelsWindow = new(userManager, travelManager);
-        travelsWindow.Show();
-
-        Close();
+        //TravelsWindow travelsWindow = new(userManager, travelManager);
+        //travelsWindow.Show();
+        //Close();
     }
 
     private void cbTravelType_SelectionChanged(object sender, SelectionChangedEventArgs e)

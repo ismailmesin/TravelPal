@@ -65,6 +65,38 @@ public class UserManager
         return null;
     }
 
+    private bool ValidateUsername(string username)
+    {
+        foreach(IUser user in users)
+        {
+            if(user.Username == username)
+            {
+                MessageBox.Show("Username already exists!");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public bool UpdateUsername(IUser user, string username)
+    {
+        if(username.Length < 3)
+        {
+            MessageBox.Show("Username is to short");
+            return false;
+        }
+        else if (username == null)
+        {
+            MessageBox.Show("You need to enter a username");
+            return false;
+        }
+        else if (ValidateUsername(username)== false)
+        {
+            return false;
+        }
+        return true;
+    }
+
     //public void ValidateUsername(string username, string password, Countries country)
     //{
     //    foreach(IUser user1 in users)
