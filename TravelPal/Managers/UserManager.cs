@@ -11,6 +11,7 @@ namespace TravelPal.Managers;
 
 public class UserManager
 {
+    //PROPS
     public List<IUser> users = new();
     public IUser? SignedInUser { get; set; }
 
@@ -59,9 +60,9 @@ public class UserManager
 
     public IUser GetUser(string username)
     {
-        foreach(IUser user in users)
+        foreach (IUser user in users)
         {
-            if(user.Username == username)
+            if (user.Username == username)
             {
                 return user;
             }
@@ -72,10 +73,12 @@ public class UserManager
 
     private bool ValidateUsername(string username)
     {
+        //Method to see if username is ok to use
         foreach(IUser user in users)
         {
             if(user.Username == username)
             {
+                //if there is a user with the same username
                 MessageBox.Show("Username already exists!");
                 return false;
             }
@@ -85,6 +88,7 @@ public class UserManager
 
     public bool UpdateUsername(IUser user, string username)
     {
+        //checking if all criterias for username are met
         if(username.Length < 3)
         {
             MessageBox.Show("Username is to short");
@@ -103,6 +107,7 @@ public class UserManager
     }
     public bool ValidatePassword(string password, string newPassword)
     {
+        //checking if all criterias for password are met
         if (password.Length < 5)
         {
             MessageBox.Show("password must be 5 characthers long");

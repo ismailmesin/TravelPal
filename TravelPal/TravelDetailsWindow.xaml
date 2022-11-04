@@ -9,16 +9,18 @@
         FontSize="15" Background="MediumSlateBlue">
     <Grid Margin="20" Background="MediumSlateBlue">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -29,7 +31,7 @@
         <Label
             Grid.Row="0"
             Grid.Column="2"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="4"
             Content="TRIP DETAILS"
             VerticalContentAlignment="Center"
             HorizontalContentAlignment="Center"
@@ -39,13 +41,13 @@
             x:Name="lvTripDetails"
             Grid.Row="2"
             Grid.Column="1"
-            Grid.ColumnSpan="4"
+            Grid.ColumnSpan="6"
             Grid.RowSpan="4"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"/>
         <Button
             x:Name="btnReturn"
-            Grid.Column="0"
+            Grid.Column="1"
             Grid.Row="6"
             Content="Return"
             Margin="10" 
